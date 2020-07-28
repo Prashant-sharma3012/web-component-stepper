@@ -123,7 +123,7 @@ class Stepper extends HTMLElement {
       stepTemplate = `
       <div class='step'>
         <div id="__step_${step.position}" class='step-icon-container step__iscomplete'>
-            ${step.icon}
+            <img src="./check-white-18dp.svg" />
         </div>
         <div class='step-label step-label__active'>${step.label}</div>
       <div>
