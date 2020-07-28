@@ -1,16 +1,16 @@
 const steps = [
   {
-    label: "One",
+    label: "Step One",
     icon: "1",
     position: 1
   },
   {
-    label: "Two",
+    label: "Step Two",
     icon: "2",
     position: 2
   },
   {
-    label: "Three",
+    label: "Step Three",
     icon: "3",
     position: 3
   },
@@ -18,7 +18,7 @@ const steps = [
 
 const currentStep = {
   id: 1,
-  label: "One",
+  label: "Step One",
   icon: "1",
 };
 

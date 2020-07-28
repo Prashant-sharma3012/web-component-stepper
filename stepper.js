@@ -15,9 +15,7 @@ class Stepper extends HTMLElement {
           #stepper_container{
             display: flex;
             flex-direction: row;
-            min-width: 30rem;
             justify-content: center;
-            width: 30rem;
             background-color: #ffffff;
             padding: 1rem;
             border-radius: 4px;
@@ -28,24 +26,33 @@ class Stepper extends HTMLElement {
             display: flex;
             flex-direction: column;
             justify-content: center;
+            margin: 0px 8px;
           }
-          .step-icon {
-            align-self: center;
+          .step-icon-container {
             border-radius: 100%;
-            border: 1px solid black;
-            width: 2rem;
-            text-align: center;
-            height: 2rem;
-            font-weight: 600;
+            width: 1.5rem;
+            height: 1.5rem;
             cursor: pointer;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            background-color: gray;
+            color: white;
+            font-family: sans-serif;
+            font-size: 14px;
+            align-items: center;
+            align-self: center;
           }
           .step-label{
             letter-spacing: 1px;
             text-align: center;
+            font-family: sans-serif;
+            font-size: 12px;
+            margin-top: 0.6rem;
           }
           .connector{
             display: flex;
-            border-bottom: 2px solid;
+            border-bottom: 1px solid #bdbdbd;
             height: 0px;
             width: 30%;
             min-width: 20%;
@@ -53,7 +60,7 @@ class Stepper extends HTMLElement {
             margin-bottom: 1rem;
           }
           .step__iscomplete{
-            background-color: #06BEE1;
+            background-color: #1976D2;
           }
         </style>
         <div id="stepper_container">
@@ -100,7 +107,9 @@ class Stepper extends HTMLElement {
   _attachStep(step, index, fragment) {
     let stepTemplate = `
       <div class='step'>
-        <div id="__step_${step.position}" class='step-icon'>${step.icon}</div>
+        <div id="__step_${step.position}" class='step-icon-container'>
+            ${step.icon}
+        </div>
         <div class='step-label'>${step.label}</div>
       <div>
     `;
@@ -110,7 +119,9 @@ class Stepper extends HTMLElement {
     if (this._currentStep && this._currentStep.position >= step.position) {
       stepTemplate = `
       <div class='step'>
-        <div id="__step_${step.position}" class='step-icon step__iscomplete'>${step.icon}</div>
+        <div id="__step_${step.position}" class='step-icon-container step__iscomplete'>
+            ${step.icon}
+        </div>
         <div class='step-label'>${step.label}</div>
       <div>
     `;
