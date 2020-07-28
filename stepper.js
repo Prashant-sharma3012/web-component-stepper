@@ -49,6 +49,10 @@ class Stepper extends HTMLElement {
             font-family: sans-serif;
             font-size: 12px;
             margin-top: 0.6rem;
+            color: gray;
+          }
+          .step-label__active{
+            color: black;
           }
           .connector{
             display: flex;
@@ -121,7 +125,7 @@ class Stepper extends HTMLElement {
         <div id="__step_${step.position}" class='step-icon-container step__iscomplete'>
             ${step.icon}
         </div>
-        <div class='step-label'>${step.label}</div>
+        <div class='step-label step-label__active'>${step.label}</div>
       <div>
     `;
     }
