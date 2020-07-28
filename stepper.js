@@ -69,7 +69,7 @@ class Stepper extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["steps", "currentStep"];
+    return ["steps", "currentstep"];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -81,7 +81,7 @@ class Stepper extends HTMLElement {
       this._steps = JSON.parse(newValue);
     }
 
-    if (name === "currentStep") {
+    if (name === "currentstep") {
       this._currentStep = JSON.parse(newValue);
     }
 
@@ -90,36 +90,45 @@ class Stepper extends HTMLElement {
 
   handleStepClick = (event) => {
     let parts = event.target.id.split("_");
-    this.clickedStep = this._steps[parts[parts.length - 1]];
+    let position = parts[parts.length - 1];
+    this.clickedStep = this._steps.find(
+      (step) => step.position.toString() === position
+    );
     this.dispatchEvent(this.onStepClick);
   };
 
   _attachStep(step, index, fragment) {
     let stepTemplate = `
       <div class='step'>
-        <div id="__step_${index}" class='step-icon'>${step.icon}</div>
+        <div id="__step_${step.position}" class='step-icon'>${step.icon}</div>
         <div class='step-label'>${step.label}</div>
       <div>
     `;
 
     let connector = '<div class="connector"></div>';
 
+    if (this._currentStep && this._currentStep.position >= step.position) {
+      stepTemplate = `
+      <div class='step'>
+        <div id="__step_${step.position}" class='step-icon step__iscomplete'>${step.icon}</div>
+        <div class='step-label'>${step.label}</div>
+      <div>
+    `;
+    }
+
     if (index !== 0) {
       fragment.insertAdjacentHTML("beforeend", connector);
     }
     fragment.insertAdjacentHTML("beforeend", stepTemplate);
 
-    if (index === 0) {
-      let el = fragment.querySelector(".step-icon");
-      el.classList.add("step__iscomplete");
-    }
-
-    let el1 = fragment.querySelector(`#__step_${index}`);
+    let el1 = fragment.querySelector(`#__step_${step.position}`);
     el1.addEventListener("click", this.handleStepClick);
   }
 
   _renderSteps() {
     let container = this.shadowRoot.getElementById("stepper_container");
+
+    container.innerHTML = "";
 
     this._steps.map((step, indx) => {
       this._attachStep(step, indx, container);
