@@ -53,11 +53,10 @@ class Stepper extends HTMLElement {
           .connector{
             display: flex;
             border-bottom: 1px solid #bdbdbd;
-            height: 0px;
-            width: 30%;
+            width: 100%;
             min-width: 20%;
             align-self: center;
-            margin-bottom: 1rem;
+            margin-bottom: 2.2rem;
           }
           .step__iscomplete{
             background-color: #1976D2;
